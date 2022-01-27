@@ -1,0 +1,25 @@
+.main-login-div {
+  background-color: #f8f9fd;
+  height: 100vh;
+  font-family: "Poppins-Regular";
+}
+.login-div {
+  background-color: white;
+  padding: 40px;
+  box-shadow: 1px 1px 5px 2px gray;
+  border-radius: 5%;
+}
+
+.login-btn {
+  background-color: #102a68 !important;
+  color: #fff !important;
+}
+
+.login-text {
+  text-align: left;
+  font-family: "Poppins-Bold";
+  color: #ff5621;
+}
+.groceryIcon {
+  height: 100px !important;
+}

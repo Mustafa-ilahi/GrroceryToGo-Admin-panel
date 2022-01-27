@@ -1,15 +1,27 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import logo from "../../assets/logo2.png";
 import "./Home.css";
 export default function Home() {
+  const navigate = useNavigate();
   return (
-    <div>
+    <div style={{ margin: "10%" }}>
       <div>
         <img src={logo} />
       </div>
-      <Button color="primary">Sign Up</Button>
-      <Button>Sign In</Button>
+      <div className="row">
+        <div className="col-12">
+          <div className="buttonDiv">
+            <Button className="signUpBtn" onClick={() => navigate("/signup")}>
+              Create an account
+            </Button>
+            <Button className="signInBtn" onClick={() => navigate("/signin")}>
+              Sign In
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

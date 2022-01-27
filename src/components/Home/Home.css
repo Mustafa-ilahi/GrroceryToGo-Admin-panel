@@ -1,3 +1,21 @@
-.container {
- 
+.buttonDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 3%;
+}
+.signUpBtn {
+  background-color: #ff5621 !important;
+  border: 0px !important;
+  font-size: 18px !important;
+  margin: 1%;
+  font-family: "Poppins-Regular";
+}
+.signInBtn {
+  background-color: #102a68 !important;
+  width: 195px;
+  border: 0px !important;
+  font-size: 18px !important;
+  font-family: "Poppins-Regular";
 }
