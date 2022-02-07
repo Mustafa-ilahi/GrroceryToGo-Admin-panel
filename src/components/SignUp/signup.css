@@ -13,14 +13,12 @@
 .login-btn {
   background-color: #102a68 !important;
   color: #fff !important;
-  width: 100%;
-  height: 8vh;
 }
 
 .login-text {
   text-align: left;
   font-family: "Poppins-Bold";
-  color: #ff5621;
+
 }
 .groceryIcon {
   height: 100px !important;
@@ -28,4 +26,5 @@
 
 .labelText {
   text-align: left;
+  
 }
