@@ -19,3 +19,9 @@
   font-size: 18px !important;
   font-family: "Poppins-Regular";
 }
+
+.imgDiv {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}

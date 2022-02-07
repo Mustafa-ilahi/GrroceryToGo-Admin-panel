@@ -1,7 +1,5 @@
 import firebase from "firebase";
 import "firebase/firestore";
-import "firebase/storage";
-import "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCOaKRYoD2oqzElPVehFneH3CXE0y3Jml4",
@@ -44,14 +42,9 @@ const signin = (email, password) => {
 };
 
 const signout = () => {
-  firebase
-    .auth()
-    .signOut()
-    .then(() => {
-      console.log("user sign out successfully");
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+  return firebase.auth().signOut();
 };
-export { signup, signin, signout, addSkills, storage, db };
+
+
+
+export { signup, signin, signout,db};

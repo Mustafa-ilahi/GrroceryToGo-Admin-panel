@@ -1,16 +1,58 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo2.png";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./signin.css";
-import { Spinner } from "reactstrap"
+import { Spinner } from "reactstrap";
+import { toast } from "react-toastify";
+import { db, getData, signin } from "../../config/firebase";
+import { storeData } from "../../store/action";
+import { useDispatch } from "react-redux";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const adminSignIn = ()=>{
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [loader, setLoader] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const adminSignIn = async () => {
+    setLoader(true);
+    if (email && password) {
+      let signedIn = await signin(email, password)
+        .then(async () => {
+          toast.success("Admin Signed In successfully");
+          setLoader(false);
+          let data = db
+            .collection("Users")
+            .where("email", "==", email)
+            .get()
+            .then((snapshot) => {
+              snapshot.forEach((item) => {
+                dispatch(storeData(item.data().email, item.data().userName));
+                navigate("/dashboard");
+              });
+            })
+            .catch((err) => {
+              return toast.error(err.message);
+            });
+        })
+        .catch((err) => {
+          setLoader(false);
+          return toast.error(err.message);
+        });
+    }
+    if (!email) {
+      setLoader(false);
+      return toast.error("Please Fill Email Field");
+    }
+    if (!password) {
+      setLoader(false);
+      return toast.error("Please Fill Password Field");
+    }
     console.log("working");
-  }
+  };
   return (
     <div className="d-flex justify-content-center align-items-center main-login-div">
       <div className="login-div">
@@ -39,18 +81,16 @@ export default function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
-          <Button
-            color="info"
-            className="login-btn"
-             onClick={adminSignIn}
-          >
-            Login
-            {/* <Spinner animation="border" variant="light" /> */}
+          <Button color="info" className="login-btn" onClick={adminSignIn}>
+            {loader ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              "Login"
+            )}
           </Button>
           <p className="mt-2" color="">
             New member create an account? <Link to="/signup">Signup</Link>
           </p>
-          
         </Form>
       </div>
     </div>

@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo2.png";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import "./signup.css";
 export default function Signup() {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [loader, setLoader] = useState(false);
+
+  const adminSignUp = () => {
+    setLoader(true);
+
+    if (!name) {
+      setLoader(false);
+      return toast.error("Please Fill Username Field");
+    }
+    if (!email) {
+      setLoader(false);
+      return toast.error("Please Fill Email Field");
+    }
+    if (!password) {
+      setLoader(false);
+      return toast.error("Please Fill Password Field");
+    }
+  };
   return (
     <div className="d-flex justify-content-center align-items-center main-login-div">
       <div className="login-div">
-        <img src={logo} className="img-fluid groceryIcon" />
+        <img
+          src={logo}
+          className="img-fluid groceryIcon"
+          style={{ textAlign: "center" }}
+        />
         <Form>
           <br />
           <FormGroup className="labelText">
@@ -17,8 +44,8 @@ export default function Signup() {
             <Input
               type="email"
               placeholder="Enter Name"
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </FormGroup>
           <FormGroup className="labelText">
@@ -28,8 +55,8 @@ export default function Signup() {
             <Input
               type="email"
               placeholder="Enter Email"
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </FormGroup>
           <FormGroup className="labelText">
@@ -39,19 +66,20 @@ export default function Signup() {
             <Input
               type="password"
               placeholder="Enter password"
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
-          <Button
-            color="info"
-            className="login-btn"
-            //  onClick={userSignIn}
-          >
-            Create an account
+          <Button color="info" className="login-btn" onClick={adminSignUp}>
+            {loader ? (
+              <Spinner animation="border" variant="light" size="sm"/>
+            ) : (
+              "Create an account"
+            )}
           </Button>
-          <p className="mt-4" >
-          Already member <Link to="/signin"> Signin </Link> with your existing account? 
+          <p className="mt-4">
+            Already member <Link to="/signin"> Signin </Link> with your existing
+            account?
           </p>
         </Form>
       </div>

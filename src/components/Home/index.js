@@ -7,7 +7,7 @@ export default function Home() {
   const navigate = useNavigate();
   return (
     <div style={{ margin: "10%" }}>
-      <div>
+      <div className="imgDiv">
         <img src={logo} />
       </div>
       <div className="row">
