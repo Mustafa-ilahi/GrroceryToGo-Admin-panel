@@ -1,0 +1,18 @@
+.signOutBtn {
+    background-color: #ff5621 !important;
+    border: 0px !important;
+    font-size: 18px !important;
+    font-family: "Poppins-Regular";
+    text-transform: uppercase;
+  }
+  .dashboardText {
+    /* #102a68 */
+    color: #102a68;
+    font-family: "Poppins-Regular";
+    font-weight: bold;
+  }
+  .header {
+    background-color: aliceblue;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  

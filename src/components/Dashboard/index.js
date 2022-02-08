@@ -1,27 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { signout } from "../../config/firebase";
+import { Button } from "reactstrap";
+import "./dashboard.css";
+import Header from "../Header";
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  const adminSignOut = async () => {
-    const signOut = await signout()
-      .then(() => {
-        toast.success("Admin Signed Out successfully");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      })
-      .catch((err) => {
-        return toast.error(err.message);
-      });
-  };
   return (
     <div>
-      <h3>Dashboard here</h3>
-      <button onClick={adminSignOut}>Sign out</button>
+      <Header />
+      <div className="productRecord pt-3">
+        <h3>No product available!</h3>
+      </div>
+      {/* <div className="d-flex justify-content-center pt-3">
+        <Button className="signInBtn">Add New Product</Button>
+      </div> */}
     </div>
   );
 }

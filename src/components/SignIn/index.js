@@ -31,8 +31,8 @@ export default function SignIn() {
             .then((snapshot) => {
               snapshot.forEach((item) => {
                 dispatch(storeData(item.data().email, item.data().userName));
-                navigate("/dashboard");
               });
+              navigate("/dashboard");
             })
             .catch((err) => {
               return toast.error(err.message);
