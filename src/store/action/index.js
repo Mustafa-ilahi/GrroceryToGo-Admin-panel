@@ -1,8 +1,9 @@
-function storeData(email, name) {
+function storeData(email, name, role) {
   return {
     type: "ADD_DATA",
     name: name,
     email: email,
+    role: role,
   };
 }
 

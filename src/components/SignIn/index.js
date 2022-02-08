@@ -13,7 +13,6 @@ export default function SignIn() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loader, setLoader] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,17 +21,29 @@ export default function SignIn() {
     if (email && password) {
       let signedIn = await signin(email, password)
         .then(async () => {
-          toast.success("Admin Signed In successfully");
+          toast.success("Signed In successfully");
           setLoader(false);
+          let role = "";
           let data = db
-            .collection("Users")
+            .collection("Admin")
             .where("email", "==", email)
             .get()
             .then((snapshot) => {
               snapshot.forEach((item) => {
-                dispatch(storeData(item.data().email, item.data().userName));
+                dispatch(
+                  storeData(
+                    item.data().email,
+                    item.data().userName,
+                    item.data().role
+                  )
+                );
+                role = item.data().role;
               });
-              navigate("/dashboard");
+              if (role == "Admin") {
+                navigate("/dashboard");
+              } else {
+                navigate("/venderDashboard");
+              }
             })
             .catch((err) => {
               return toast.error(err.message);
@@ -51,7 +62,6 @@ export default function SignIn() {
       setLoader(false);
       return toast.error("Please Fill Password Field");
     }
-    console.log("working");
   };
   return (
     <div className="d-flex justify-content-center align-items-center main-login-div">

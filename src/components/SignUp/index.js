@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo2.png";
-import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Spinner,
+  ButtonDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -8,31 +19,38 @@ import "./signup.css";
 import { db, signup } from "../../config/firebase";
 import { useDispatch } from "react-redux";
 import { storeData } from "../../store/action";
+
 export default function Signup() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loader, setLoader] = useState(false);
+  const [dropdownOpen, setOpen] = useState();
+  const [role, setRole] = useState("Select Role");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const adminSignUp = async () => {
     setLoader(true);
     if (name && email && password) {
-      // toast.success("All set");
       let signedUp = await signup(email, password)
         .then(() => {
-          // toast.success("Done");
           let data = db
             .collection("Admin")
             .add({
               email,
               name,
+              role,
             })
             .then(() => {
-              toast.success("Done");
-              dispatch(storeData(email, name));
-              navigate("/dashboard");
+              toast.success("Sign Up successfully");
+              dispatch(storeData(email, name, role));
+              if (role == "Admin") {
+                navigate("/dashboard");
+              } else {
+                navigate("/venderDashboard");
+              }
 
               setLoader(false);
             });
@@ -97,6 +115,40 @@ export default function Signup() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="examplePassword" className="login-text">
+              *Role &nbsp; &nbsp;
+            </Label>
+            <ButtonDropdown
+              toggle={() => {
+                setOpen(!dropdownOpen);
+              }}
+              isOpen={dropdownOpen}
+            >
+              <DropdownToggle
+                style={{
+                  backgroundColor: "#ff5621",
+                  color: "#fff",
+                  fontFamily: "Poppins-Regular",
+                }}
+                caret
+              >
+                {role}
+              </DropdownToggle>
+
+              <DropdownMenu
+                style={{ textAlign: "center", fontFamily: "Poppins-Regular" }}
+              >
+                <DropdownItem onClick={() => setRole("Vender")}>
+                  Vender
+                </DropdownItem>
+                <DropdownItem onClick={() => setRole("Admin")}>
+                  Admin
+                </DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
+          </FormGroup>
+
           <Button color="info" className="login-btn" onClick={adminSignUp}>
             {loader ? (
               <Spinner animation="border" variant="light" size="sm" />

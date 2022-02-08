@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import logo from "../../assets/logo2.png";
 import "./Home.css";
 export default function Home() {
   const navigate = useNavigate();
+  const role = useSelector((state) => state.role);
+  console.log(role);
   return (
     <div style={{ margin: "10%" }}>
       <div className="imgDiv">

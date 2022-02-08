@@ -6,10 +6,12 @@ import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { useSelector } from "react-redux";
+import VenderDashboard from "../components/VenderDashboard";
+import AddProduct from "../components/AddProduct";
 
 export default function App() {
-  const signedIn = useSelector((state) => state.email);
-  console.log(signedIn);
+  const role = useSelector((state) => state.role);
+  // console.log(role);
   return (
     <Router>
       <Routes>
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/venderDashboard" element={<VenderDashboard />} />
+        <Route path="/addProduct" element={<AddProduct />} />
         {/* <ProtectedRoute path="/dashboard" component={Dashboard} signedIn={signedIn} /> */}
       </Routes>
     </Router>
