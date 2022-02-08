@@ -14,27 +14,25 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-const signup = (email, password, userName) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      // ...
+const signup = (email, password) => {
+  return firebase.auth().createUserWithEmailAndPassword(email, password);
+  // .then((userCredential) => {
+  //   // Signed in
+  //   var user = userCredential.user;
+  //   // ...
 
-      console.log("user registered successfully", user.uid);
-      db.collection("Admin").doc(user.uid).set({
-        email,
-        userName,
-      });
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-      console.log(errorMessage);
-    });
+  //   console.log("user registered successfully", user.uid);
+  //   db.collection("Admin").doc(user.uid).set({
+  //     email,
+  //     userName,
+  //   });
+  // })
+  // .catch((error) => {
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   // ..
+  //   console.log(errorMessage);
+  // });
 };
 
 const signin = (email, password) => {
@@ -45,6 +43,4 @@ const signout = () => {
   return firebase.auth().signOut();
 };
 
-
-
-export { signup, signin, signout,db};
+export { signup, signin, signout, db };

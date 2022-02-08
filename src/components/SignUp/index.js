@@ -1,19 +1,46 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo2.png";
 import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./signup.css";
+import { db, signup } from "../../config/firebase";
+import { useDispatch } from "react-redux";
+import { storeData } from "../../store/action";
 export default function Signup() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const adminSignUp = () => {
+  const adminSignUp = async () => {
     setLoader(true);
+    if (name && email && password) {
+      // toast.success("All set");
+      let signedUp = await signup(email, password)
+        .then(() => {
+          // toast.success("Done");
+          let data = db
+            .collection("Admin")
+            .add({
+              email,
+              name,
+            })
+            .then(() => {
+              toast.success("Done");
+              dispatch(storeData(email, name));
+              navigate("/dashboard");
 
+              setLoader(false);
+            });
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
     if (!name) {
       setLoader(false);
       return toast.error("Please Fill Username Field");
@@ -72,7 +99,7 @@ export default function Signup() {
           </FormGroup>
           <Button color="info" className="login-btn" onClick={adminSignUp}>
             {loader ? (
-              <Spinner animation="border" variant="light" size="sm"/>
+              <Spinner animation="border" variant="light" size="sm" />
             ) : (
               "Create an account"
             )}
