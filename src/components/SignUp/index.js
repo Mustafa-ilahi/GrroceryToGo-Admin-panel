@@ -73,7 +73,7 @@ export default function Signup() {
     }
   };
   return (
-    <div className="d-flex justify-content-center align-items-center main-login-div">
+    <div className="d-flex justify-content-center text-center align-items-center main-login-div">
       <div className="login-div">
         <img
           src={logo}
@@ -115,7 +115,7 @@ export default function Signup() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
-          <FormGroup>
+          <FormGroup style={{ textAlign: "left" }}>
             <Label for="examplePassword" className="login-text">
               *Role &nbsp; &nbsp;
             </Label>

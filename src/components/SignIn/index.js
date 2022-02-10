@@ -64,7 +64,7 @@ export default function SignIn() {
     }
   };
   return (
-    <div className="d-flex justify-content-center align-items-center main-login-div">
+    <div className="d-flex justify-content-center text-center align-items-center main-login-div">
       <div className="login-div">
         <img src={logo} className="img-fluid groceryIcon" />
         <Form>
