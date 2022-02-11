@@ -58,16 +58,13 @@ export default function Signup() {
         .catch((err) => {
           toast.error(err.message);
         });
-    }
-    if (!name) {
+    } else if (!name) {
       setLoader(false);
       return toast.error("Please Fill Username Field");
-    }
-    if (!email) {
+    } else if (!email) {
       setLoader(false);
       return toast.error("Please Fill Email Field");
-    }
-    if (!password) {
+    } else if (!password) {
       setLoader(false);
       return toast.error("Please Fill Password Field");
     }

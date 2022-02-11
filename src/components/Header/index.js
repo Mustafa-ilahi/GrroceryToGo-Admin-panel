@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const navigate = useNavigate();
   const role = useSelector((state) => state.role);
-  console.log(role);
+  // console.log(role);
   const adminSignOut = async () => {
     const signOut = await signout()
       .then(() => {
@@ -26,9 +26,19 @@ export default function Header() {
     <div>
       <div className="d-flex justify-content-between p-3 header">
         <h3 className="dashboardText">{role} Dashboard</h3>
-        <Button className="signOutBtn" onClick={adminSignOut}>
-          Sign out
-        </Button>
+        <div>
+          {role === "Vender" && (
+            <Button
+              className="signInBtn"
+              onClick={() => navigate("/addProduct")}
+            >
+              Add New Product
+            </Button>
+          )}
+          <Button className="signOutBtn" onClick={adminSignOut}>
+            Sign out
+          </Button>
+        </div>
       </div>
     </div>
   );

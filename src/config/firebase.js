@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCOaKRYoD2oqzElPVehFneH3CXE0y3Jml4",
@@ -13,7 +14,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
-
+const storage = firebase.storage();
 const signup = (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password);
   // .then((userCredential) => {
@@ -43,4 +44,4 @@ const signout = () => {
   return firebase.auth().signOut();
 };
 
-export { signup, signin, signout, db };
+export { signup, signin, signout, db, storage };

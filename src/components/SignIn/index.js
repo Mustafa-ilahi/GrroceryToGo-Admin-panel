@@ -54,11 +54,11 @@ export default function SignIn() {
           return toast.error(err.message);
         });
     }
-    if (!email) {
+    else if (!email) {
       setLoader(false);
       return toast.error("Please Fill Email Field");
     }
-    if (!password) {
+    else if (!password) {
       setLoader(false);
       return toast.error("Please Fill Password Field");
     }

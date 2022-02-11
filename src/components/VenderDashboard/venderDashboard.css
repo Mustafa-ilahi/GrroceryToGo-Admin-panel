@@ -1,0 +1,17 @@
+.products {
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 35%;
+}
+.your-products {
+  font-family: "Poppins-Regular";
+  text-transform: uppercase;
+  color: #ff5621;
+  font-weight: bold;
+}
+li {
+  font-family: "Poppins-Regular";
+  font-size: 16px;
+  font-weight: bold;
+}
